@@ -1,0 +1,10 @@
+Line
+
+1. The data is structured on an array. Users will be able to add, remove and search. It allows users to find the front, back and middle of the line members.
+2. Use the search feature and members as parameter.
+3. It can be used for any list in order to add and remove members. An example could be a music streaming service like Spotify or a Podcast hosting platform like iTunes.
+
+Pixel
+1. The Pixel's structure is an array stacked on top of another array.
+2. Call the corresponding X array and then the Y array could find the data.
+3. The Pixel could be used for structure matrix of X and Y. Examples could be a game of Battleship, Twister, or Kingdom Hearts. 
