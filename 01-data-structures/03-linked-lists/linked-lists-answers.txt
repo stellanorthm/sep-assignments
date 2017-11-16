@@ -1,0 +1,16 @@
+1. Spatial locality refers to the use of data elements within relatively close storage locations, which helps with efficiency while looking for data due to proximity.
+
+2. Arrays seem better when accessing and deleting the items.
+
+"Array of 10,000"
+  0.000000   0.000000   0.000000 (  0.003113)
+"Node of 10,000"
+  0.010000   0.000000   0.010000 (  0.003705)
+"Array access 500th index"
+  0.000000   0.000000   0.000000 (  0.000002)
+"Access 500th Node"
+  0.000000   0.000000   0.000000 (  0.000276)
+"Array delete 500th index"
+  0.000000   0.000000   0.000000 (  0.000006)
+"Delete 500th Node"
+  0.000000   0.000000   0.000000 (  0.000436)
