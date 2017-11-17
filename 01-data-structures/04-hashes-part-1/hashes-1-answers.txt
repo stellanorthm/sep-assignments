@@ -1,0 +1,1 @@
+Doubling the size of an array (allocating memory) is a slow operation makes for an inefficient way of programming due to its delays in data searching due to assignment of a new index for each element.   
