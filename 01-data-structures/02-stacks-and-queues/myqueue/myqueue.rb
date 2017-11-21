@@ -15,16 +15,11 @@ class MyQueue
 
   def dequeue
     @queue.slice!(@queue.length - 1)
-    @head = @queue[0]
     @tail = @queue.last
   end
 
   def empty?
-    if @queue == []
-      return true
-    else
-      return false
-    end
+    @queue.length = 0
   end
 
 end

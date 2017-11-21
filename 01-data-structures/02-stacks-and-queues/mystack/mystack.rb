@@ -17,6 +17,6 @@ class MyStack
   end
 
   def empty?
-    @stack == []
+    @stack.length == 0
   end
 end
