@@ -1,0 +1,19 @@
+
+2.
+
+Insert Heap
+49.580000   0.740000  50.320000 ( 50.368673)
+Search Heap
+  0.000000   0.000000   0.000000 (  0.005997)
+Delete Node
+  0.010000   0.000000   0.010000 (  0.010417)
+Insert Binary
+  0.080000   0.000000   0.080000 (  0.084064)
+Search Binary
+  0.010000   0.000000   0.010000 (  0.005579)
+Delete node
+  0.000000   0.000000   0.000000 (  0.005373)
+
+Time insertion for a binary heap should be faster. Binary search tree is better for
+general searching regardless of speed or efficiency; searching in a binary heap is efficient for
+searching the max/min.
