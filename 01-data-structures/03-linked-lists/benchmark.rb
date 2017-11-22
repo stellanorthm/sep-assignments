@@ -5,6 +5,14 @@ require_relative 'linked_list'
 array = []
 new_list = LinkedList.new
 
+p "Array Created"
+puts Benchmark.measure {
+  array = []
+  (0...10000).each do |x|
+    array[x] = Node.new(x)
+  end
+}
+
 p "Node of 10,000"
 puts Benchmark.measure {
   (0...10000).each do |x|
