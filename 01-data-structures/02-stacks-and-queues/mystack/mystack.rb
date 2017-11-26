@@ -2,6 +2,7 @@ class MyStack
   attr_accessor :top
 
   def initialize
+    
     @stack = Array.new
     @top = nil
   end
