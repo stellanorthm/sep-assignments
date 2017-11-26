@@ -4,27 +4,70 @@ class LinkedList
   attr_accessor :head
   attr_accessor :tail
 
+  def initialize
+    @head = nil
+    @tail = nil
+  end
+
   # This method creates a new `Node` using `data`, and inserts it at the end of the list.
   def add_to_tail(node)
+    return unless node
+    @head ||= node
+    @tail.next = node if @tail
+    @tail = node
+    @tail.next = nil
   end
 
   # This method removes the last node in the lists and must keep the rest of the list intact.
   def remove_tail
+    if @tail.nil?
+      return nil
+    elsif @head.next.nil?
+      @tail = nil
+    else
+      current_node = @head
+      until current_node.next == @tail
+        current_node = current_node.next
+      end
+      current_node.next = nil
+      @tail = current_node
+    end
   end
 
   # This method prints out a representation of the list.
   def print
+    node = @head
+    while node != @tail
+      break if node.nil?
+      puts node.data
+      node = node.next
+    end
+    puts @tail.data
   end
 
   # This method removes `node` from the list and must keep the rest of the list intact.
   def delete(node)
+    if @head == node
+      remove_front
+    elsif @tail == node
+      remove_tail
+    else
+      current_node = @head
+      until current_node.next == node
+        current_node = current_node.next
+      end
+      current_node.next = node.next
+    end
   end
 
   # This method adds `node` to the front of the list and must set the list's head to `node`.
   def add_to_front(node)
+    node.next = @head
+    @head.nil? && @tail.nil? ? (@head = node && @tail = node) : @head = node
   end
 
   # This method removes and returns the first node in the Linked List and must set Linked List's head to the second node.
   def remove_front
+    @tail == @head ? @head = nil : @head = @head.next
   end
 end

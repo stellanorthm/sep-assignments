@@ -4,29 +4,37 @@ class SeparateChaining
   attr_reader :max_load_factor
 
   def initialize(size)
+    @items = Array.new(size)
+    @item_count = 0
     @max_load_factor = 0.7
-    @hash = Array.new(size)
-    @entries = 0
   end
 
   def []=(key, value)
     i = index(key, @items.size)
     n = Node.new(key, value)
+
+    # COLLISION!
     @items[i] != nil ? list = @items[i] : list = LinkedList.new
+
     list.add_to_tail(n)
     @items[i] = list
-    @entries = @entries + 1
+    @item_count = @item_count + 1
+
+    # Resize the hash if the load factor grows too large
+    if load_factor.to_f > max_load_factor.to_f
+      resize
+    end
   end
 
   def [](key)
-    l = @items.at(index(key, @items.size))
-    if list.nil?
-      current_item = list.head
-      while current_item.nil?
-        if current_item.key == key
-          return current_item.value
+    list = @items.at(index(key, @items.size))
+    if list != nil
+      curr = list.head
+      while curr != nil
+        if curr.key == key
+          return curr.value
         end
-        current_item = current_item.next
+        curr = curr.next
       end
     end
   end
@@ -36,52 +44,56 @@ class SeparateChaining
   # a starting point.
   def index(key, size)
     sum = 0
-    key.split("").each do | i |
-      next if i.ord == 0
-      sum = sum + i.ord
+
+    key.split("").each do |char|
+      if char.ord == 0
+        next
+      end
+
+      sum = sum + char.ord
     end
-    return sum % size
+
+    sum % size
   end
 
   # Calculate the current load factor
   def load_factor
-    @size = size + 0.0
-    int = @entries / @size
-    return int
+    @item_count / self.size.to_f
   end
 
   # Simple method to return the number of items in the hash
   def size
-    return @hash.length
+    @items.size
   end
 
   # Resize the hash
   def resize
-    @size = @size * 2
-    x_hash = Array.new(@size)
-    @items.each do | i |
-      if i != nil
-        x_hash[index(i.key, @size)] = i
+    new_size = size*2
+    new_items = Array.new(new_size)
+    (0..@items.size-1).each do |i|
+      list = @items[i]
+      if list != nil
+        curr = list.head
+        # We only need to compute the new index once
+        new_index = index(curr.key, new_items.size)
+        while curr != nil
+          list = LinkedList.new
+          list.add_to_tail(curr)
+          new_items[new_index] = list
+          curr = curr.next
+        end
       end
     end
-    @items = x_hash
+
+    @items = new_items
   end
 
-  def loadFactor
-    @size = @size + 0.0
-    @factor = @entries / @size
-    return @factor
-  end
-
-  def print_hash
-    (0...@size).each do |item|
-      if @hash[item] != nil
-        puts "Index is #{item}"
-        @hash[item].print
-      end
+  def hash_printer
+    compacted_items = @items.compact
+    loadFactor = ((compacted_items.length) / self.size.to_f)
+    puts "Load Factor: #{loadFactor.round(2)}"
+    compacted_items.each_with_index do |item, index|
+      puts "Index: #{index}, Value: #{item.inspect}"
     end
-    puts "Load Factor is #{loadFactor}"
   end
-
-
 end
