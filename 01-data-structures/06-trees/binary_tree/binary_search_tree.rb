@@ -8,49 +8,50 @@ class BinarySearchTree
 
   def insert(root, node)
     if root.rating > node.rating
-      if root.left.nil?
-        (root.left = node)
-      else insert(root.left, node)
+      root.left.nil? ? (root.left = node) : insert(root.left, node)
     else
-      if root.right.nil?
-        (root.right = node)
-      else insert(root.right, node)
+      root.right.nil? ? (root.right = node) : insert(root.right, node)
     end
   end
 
   # Recursive Depth First Search
   def find(root, data)
+    if root.nil? || data.nil?
+      return nil
+    else
       if root.title == data
-        return true
-      elsif root.title < data
-        if root.left.nil?
-          return false
-        else
-          return root.left.title
-      elsif root.right.nil?
-          return root.
+        return root
+      elsif root.left != nil
+        find(root.left, data)
+      elsif root.right != nil
+        find(root.right, data)
       end
+    end
   end
 
   def delete(root, data)
-    if root.nil?
+    if root.nil? || data.nil?
       return nil
     else
-      given_data = find(root, data)
-      if given_data.nil?
-        given_data.title = nil && target_node.rating = nil
-      end
+      main = find(root, data)
+      main.nil? ? nil : (main.title = nil && main.rating = nil)
     end
   end
 
   # Recursive Breadth First Search
   def printf(children=nil)
-    children = [@root]
-    if root.left.nil?
-      root.left.printf("#{root.left.title}: #{root.left.rating}")
-    elsif root.right.nil?
-      root.right.printf("#{root.left.title}: #{root.left.rating}")
+    child = [@root]
+    total = []
+    while child.length > 0
+      root2 = child.shift
+      if root2.left != nil
+        child.push(root2.left)
+      end
+      if root2.right != nil
+        child.push(root2.right)
+      end
+      total.push("#{root2.title}: #{root2.rating}")
     end
+    total.each {|i| puts i}
   end
-
 end

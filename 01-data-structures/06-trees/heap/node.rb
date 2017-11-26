@@ -9,3 +9,5 @@ class Node
     @title = title
     @rating = rating
   end
+
+end

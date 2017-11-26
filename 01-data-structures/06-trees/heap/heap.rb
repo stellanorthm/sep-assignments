@@ -7,26 +7,28 @@ class Heap
     @root = root
   end
 
-  def insert(root, node)
-    if node.rating < root.rating
-      temp = root
-      @root = node
-      node = temp
-      insert(@root, node)
-    else
-      if root.left.nil?
-        root.left = node
-      elsif root.right.nil? && root.left != nil
-        root.right = node
-      elsif root.left != nil && root.right != nil
-        insert(root.left, node)
-      end
+def insert(root, node)
+  if root.rating > node.rating
+    temp = root
+    @root = node
+    node = temp
+    insert(@root, node)
+  else
+    if root.left.nil?
+      root.left = node
+    elsif root.right.nil? && root.left != nil
+      root.right = node
+    elsif root.left != nil && root.right != nil && root.left.left != nil && root.left.right != nil
+      insert(root.right, node)
+    elsif root.left != nil && root.right != nil
+      insert(root.left, node)
     end
   end
+end
 
   def find(root, data)
-    if root.nil?
-          return nil
+    if root.nil? || data.nil?
+      return nil
     else
       if root.title == data
         return root
@@ -39,30 +41,27 @@ class Heap
   end
 
   def delete(root, data)
-    if root.nil?
+    if root.nil? || data.nil?
       return nil
     else
-      given_node = find(root, data)
-      given_node.nil? ? nil : (given_node.title = nil && given_node.rating = nil)
+      target_node = find(root, data)
+      target_node.nil? ? nil : (target_node.title = nil && target_node.rating = nil)
     end
   end
 
   def printf
-    temp = [@root]
-    row = []
-    while temp.length > 0
-      newRoot = temp.shift
-      if newRoot.left != nil
-        temp.push(newRoot.left)
+    queue = [@root]
+    result = []
+    while queue.length > 0
+      new_root = queue.shift
+      if new_root.left != nil
+        queue.push(new_root.left)
       end
-      if newRoot.right != nil
-        temp.push(newRoot.right)
+      if new_root.right != nil
+        queue.push(new_root.right)
       end
-      temp.push("#{newRoot.title}: #{newRoot.rating}")
+      result.push("#{new_root.title}: #{new_root.rating}")
     end
-    row.each do |x|
-      puts x
-    end
+    result.each {|x| puts x}
   end
-
 end
