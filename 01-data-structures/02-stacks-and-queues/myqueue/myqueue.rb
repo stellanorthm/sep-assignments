@@ -3,7 +3,6 @@ class MyQueue
   attr_accessor :tail
 
   def initialize
-    
     @queue = Array.new
     @head = @queue[0]
   end
@@ -20,7 +19,6 @@ class MyQueue
   end
 
   def empty?
-    @queue.length = 0
+    @queue.length == 0
   end
-
 end
